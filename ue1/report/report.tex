@@ -302,7 +302,45 @@ For some metrics (precision, recall, f1) we averaged the results over all classe
 \subsection{Parameters}
 
 \subsubsection{Logistic Regression}
-We tried the following combinations
+The combinations of parameters can be seen in the table below.
+
+\begin{table}[h]
+\label{tbl:1}
+\centering
+\caption{Parameters for logistic regression}
+\begin{tabular}{|c|c|}
+\hline 
+Solver & C \\ 
+\hline 
+lbfgs & 1 \\ 
+\hline 
+lbfgs & 0.8 \\ 
+\hline 
+lbfgs & 1.2 \\ 
+\hline 
+lbgfs & 10 \\ 
+\hline 
+newton-cg & 1 \\ 
+\hline 
+newton-cg & 0.8 \\ 
+\hline 
+newton-cg & 1.2 \\ 
+\hline 
+newton-cg & 10 \\ 
+\hline 
+\end{tabular} 
+\end{table}
+
+We experienced similar results with all parameter combinations.
+In Figure \ref{fig:lr} the results for the first set of parameters is shown.
+
+\begin{figure}[h]
+  \label{fig:lr}
+  \centering
+  \caption{Logistic regression with solver=lbfgs, C=1}
+  \includegraphics[width=0.5\textwidth]{../plots/LR_1}
+  \label{fig:anomalySetup}
+\end{figure}
 
 \subsubsection{Random Forest}
 
@@ -311,11 +349,5 @@ We tried the following combinations
 
 \subsection{Training / test set split}
 
-\begin{figure}[]
-  \centering
-  \caption{Logistic regression with TODO settings}
-  \includegraphics[width=0.5\textwidth]{../plots/LR_1}
-  \label{fig:anomalySetup}
-\end{figure}
 
 \end{document}
