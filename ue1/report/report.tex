@@ -228,7 +228,7 @@ Parameters:
 \begin{itemize}
   \item n\_estimators: number of trees
   \item criterion: criterion used for splits of the trees
-  \item min\_samples\_leaves: minimum number of samples required to be a leaf node 
+  \item min\_sampless\_leaves: minimum number of samples required to be a leaf node 
 \end{itemize}
 
 \subsection{Preprocessing}
@@ -343,11 +343,101 @@ In Figure \ref{fig:lr} the results for the first set of parameters is shown.
 \end{figure}
 
 \subsubsection{Random Forest}
+The parameters of the algorithms as described above were varied.
+In contrast to the logistic regression we could observe a lot of variance in the outcome for the random forest.
+
+The most variance results in changing the number of estimators used. We could observe that 2 or 5 estimators are too few e.g. result in under-fitting. The default of 100 seems to be pretty reasonable.
+
+\begin{figure}[]
+  \centering
+  \caption{RF(n\_estimators=1, criterion='gini', min\_samples\_leaves=1)}
+  \includegraphics[width=0.5\textwidth]{../plots/RF_1}
+  \label{fig:anomalySetup}
+\end{figure}
+
+\begin{figure}[]
+  \centering
+  \caption{RF(n\_estimators=1, criterion='gini', min\_samples\_leaves=1)}
+  \includegraphics[width=0.5\textwidth]{../plots/RF_2}
+  \label{fig:anomalySetup}
+\end{figure}
+
+\begin{figure}[]
+  \centering
+  \caption{RF(n\_estimators=1, criterion='gini', min\_samples\_leaves=1)}
+  \includegraphics[width=0.5\textwidth]{../plots/RF_3}
+  \label{fig:anomalySetup}
+\end{figure}
+
+\begin{figure}[]
+  \centering
+  \caption{RF(n\_estimators=1, criterion='gini', min\_samples\_leaves=1)}
+  \includegraphics[width=0.5\textwidth]{../plots/RF_4}
+  \label{fig:anomalySetup}
+\end{figure}
+
+\begin{figure}[]
+  \centering
+  \caption{RF(n\_estimators=1, criterion='gini', min\_samples\_leaves=1)}
+  \includegraphics[width=0.5\textwidth]{../plots/RF_5}
+  \label{fig:anomalySetup}
+\end{figure}
+
+\begin{figure}[]
+  \centering
+  \caption{RF(n\_estimators=1, criterion='gini', min\_samples\_leaves=1)}
+  \includegraphics[width=0.5\textwidth]{../plots/RF_6}
+  \label{fig:anomalySetup}
+\end{figure}
+
+\begin{figure}[]
+  \centering
+  \caption{RF(n\_estimators=1, criterion='gini', min\_samples\_leaves=1)}
+  \includegraphics[width=0.5\textwidth]{../plots/RF_7}
+  \label{fig:anomalySetup}
+\end{figure}
+
+\begin{figure}[]
+  \centering
+  \caption{RF(n\_estimators=1, criterion='gini', min\_samples\_leaves=1)}
+  \includegraphics[width=0.5\textwidth]{../plots/RF_8}
+  \label{fig:anomalySetup}
+\end{figure}
+
+\begin{figure}[]
+  \centering
+  \caption{RF(n\_estimators=1, criterion='gini', min\_samples\_leaves=1)}
+  \includegraphics[width=0.5\textwidth]{../plots/RF_9}
+  \label{fig:anomalySetup}
+\end{figure}
+
+\begin{figure}[]
+  \centering
+  \caption{RF(n\_estimators=1, criterion='gini', min\_samples\_leaves=1)}
+  \includegraphics[width=0.5\textwidth]{../plots/RF_A}
+  \label{fig:anomalySetup}
+\end{figure}
+
+\begin{figure}[]
+  \centering
+  \caption{RF(n\_estimators=1, criterion='gini', min\_samples\_leaves=1)}
+  \includegraphics[width=0.5\textwidth]{../plots/RF_B}
+  \label{fig:anomalySetup}
+\end{figure}
+
+\begin{figure}[]
+  \centering
+  \caption{RF(n\_estimators=1, criterion='gini', min\_samples\_leaves=1)}
+  \includegraphics[width=0.5\textwidth]{../plots/RF_C}
+  \label{fig:anomalySetup}
+\end{figure}
+
+
+
 
 
 \subsection{Scaling}
 
 \subsection{Training / test set split}
-
 
 \end{document}
