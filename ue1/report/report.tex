@@ -150,13 +150,88 @@ We use the \href{https://www.kaggle.com/c/leaf-classification}{leaf classificati
 \subsection{Characteristics of the extracted features}
 The following numbers are for the training data set
 
-    Number of features 194
-    Number of categorical features 1
-    Number of numerical features 193
-    Number of Samples 990
-    Target variable contains 99 different species
+\begin{itemize}
+  \item Number of features 194
+  \item Number of categorical features 1
+  \item Number of numerical features 193
+  \item Number of Samples 990
+  \item Target variable contains 99 different species
+\end{itemize}
 
 The test data set contains 594 additional instances. All in all the minimum requirements for the dataset are fulfilled.
 
+
+A detailed description of mean / min values or value ranges can be found in 
+\textbf{firstAnalysisOfTheData}
+, including histograms. 
+
+In general:
+\begin{enumerate}
+  \item id
+  \item ID of the images from which the features were extracted
+  \item Range: [1,1584]
+  \item marginN (1-64)
+  \begin{enumerate}
+	  \item Numerical
+	  \item Range (approximately): [0,0.3]
+	  \item Many outliers
+  \end{enumerate}
+  \item shapeN (1-64)
+  \begin{enumerate}
+ 	  \item Numerical
+	  \item Range (approximately): [0,0.003]
+	  \item Few outliers
+\end{enumerate}
+\item textureN (1-64)
+	\begin{enumerate}
+		\item Numerical
+	  \item Range (approximately): [0,0.43]
+	  \item Few outliers
+\end{enumerate}
+
+\item species
+  \begin{enumerate}
+	\item Categorical
+	  \item 99 unique values
+	  \item The dataset does not contain any missing values and is not sparse.
+\end{enumerate}
+
+\end{enumerate}
+
+\section{Classification}
+Analysis of Train/Test Set Splits, Performance and Parameters
+
+\subsection{Selection of algorithms}
+\subsubsection{Logistic regression (extracted features)}
+\begin{enumerate}
+  \item results easy to interpret
+  \item fast to compute
+\end{enumerate}
+
+\subsubsection{Random forest (extracted features)}
+\begin{enumerate}
+  \item popular methodology
+  \item no feature scaling required
+  \item very robust
+  \item quick for smaller datasets
+\end{enumerate}
+
+\subsection{Preprocessing}
+\subsubsection{Scaling}
+marginN, scaleN and textureN will be scaled. 
+\subsubsection{OWN}
+For marginN and textureN we will introduce a new column with binary values which will be 1 if the value of marginN/textureN is nearly 0.
+We do this in order to better handle numeric distances which otherwise might get distorted.
+
+\subsection{Subsampling}
+We will process the entire dataset, as it only contains around 1000 rows.
+
+\section{Foo}
+\begin{figure}[]
+  \centering
+  \caption{Logistic regression with TODO settings}
+  \includegraphics[width=\textwidth]{../plots/LR_1}
+  \label{fig:anomalySetup}
+\end{figure}
 
 \end{document}
