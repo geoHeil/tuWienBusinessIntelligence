@@ -48,6 +48,7 @@
 \documentclass{sig-alternate-05-2015}
 
 \usepackage{hyperref}
+\usepackage{verbatim}
 
 \begin{document}
 
@@ -166,71 +167,154 @@ A detailed description of mean / min values or value ranges can be found in
 , including histograms. 
 
 In general:
-\begin{enumerate}
+\begin{itemize}
   \item id
   \item ID of the images from which the features were extracted
   \item Range: [1,1584]
   \item marginN (1-64)
-  \begin{enumerate}
+  \begin{itemize}
 	  \item Numerical
 	  \item Range (approximately): [0,0.3]
 	  \item Many outliers
-  \end{enumerate}
+  \end{itemize}
   \item shapeN (1-64)
-  \begin{enumerate}
+  \begin{itemize}
  	  \item Numerical
 	  \item Range (approximately): [0,0.003]
 	  \item Few outliers
-\end{enumerate}
+\end{itemize}
 \item textureN (1-64)
-	\begin{enumerate}
+	\begin{itemize}
 		\item Numerical
 	  \item Range (approximately): [0,0.43]
 	  \item Few outliers
-\end{enumerate}
+\end{itemize}
 
 \item species
-  \begin{enumerate}
+  \begin{itemize}
 	\item Categorical
 	  \item 99 unique values
 	  \item The dataset does not contain any missing values and is not sparse.
-\end{enumerate}
+\end{itemize}
 
-\end{enumerate}
+\end{itemize}
 
 \section{Classification}
 Analysis of Train/Test Set Splits, Performance and Parameters
 
 \subsection{Selection of algorithms}
 \subsubsection{Logistic regression (extracted features)}
-\begin{enumerate}
+\begin{itemize}
   \item results easy to interpret
   \item fast to compute
-\end{enumerate}
+\end{itemize}
+
+Parameters:
+\begin{itemize}
+  \item C: inverse of the regularization strength
+  \item solver: algorithm to use in the optimization problem
+\end{itemize}
+
 
 \subsubsection{Random forest (extracted features)}
-\begin{enumerate}
+\begin{itemize}
   \item popular methodology
   \item no feature scaling required
   \item very robust
   \item quick for smaller datasets
-\end{enumerate}
+\end{itemize}
+
+Parameters:
+\begin{itemize}
+  \item n\_estimators: number of trees
+  \item criterion: criterion used for splits of the trees
+  \item min\_samples\_leaves: minimum number of samples required to be a leaf node 
+\end{itemize}
 
 \subsection{Preprocessing}
+
 \subsubsection{Scaling}
-marginN, scaleN and textureN will be scaled. 
-\subsubsection{OWN}
-For marginN and textureN we will introduce a new column with binary values which will be 1 if the value of marginN/textureN is nearly 0.
+marginN, scaleN and textureN will be scaled, we will explore the results of different scaling algorithms later on (standardization and min-max scaling) via pipelines to streamline the workflow.
+An example for the min-max scaler is displayed below:
+\begin{verbatim}
+Pipeline([('scaling', MinMaxScaler()),
+          ('estimator', LogisticRegression(...))])
+\end{verbatim}
+
+\subsubsection{Target variable}
+
+Label encoding of target variable:
+\begin{verbatim}
+df.species = df.species.astype('category').cat.codes
+\end{verbatim}
+
+Splitting data frame into training data X and labels y and ID column:
+\begin{verbatim}
+def transform(data):
+    ID = data.id
+    X = data.drop(['species', 'id'], axis=1)
+    y = data['species']
+    return ID, X, y
+
+ID, X, y = transform(df)
+\end{verbatim}
+
+The ID column is a reference to the original image and not suited for training, as it conveys no meaning.
+
+\subsubsection{Additional preprocessing}
+For marginN and textureN we will introduce a new column with binary values which will be 1 if the value of marginN / textureN is nearly 0.
 We do this in order to better handle numeric distances which otherwise might get distorted.
+
+\begin{verbatim}
+def addZeroColumn(df, colName):
+    df.loc[df[colName] < 0.01, 
+          colName + '_is_small'] = 1
+    df[colName + '_is_small']
+         .fillna(0, inplace=True)
+
+def addZeroColumns(df, colBaseName):
+    for n in range(1,65):
+        addZeroColumn(df, colBaseName + str(n))
+        
+addZeroColumns(X, 'margin')
+addZeroColumns(X, 'texture')
+\end{verbatim}
 
 \subsection{Subsampling}
 We will process the entire dataset, as it only contains around 1000 rows.
 
-\section{Foo}
+\section{Training \& Testing}
+The code to follow along with this part of the assignment can be found in \emph{02\_classification.ipnb}. Below only the obtained results will be discussed.
+\subsection{Quality metrics}
+
+We chose the following quality metrics:
+\begin{itemize}
+	\item Precision Score
+	\item Recall Score
+	\item Accuracy Score
+	\item Cohen Kappa Score
+	\item F1 Score
+\end{itemize}
+
+To calculate those metrics we calculated the mean over the 10 folds.
+For some metrics (precision, recall, f1) we averaged the results over all classes beforehand, because all classes are equally distributed, stratified sampled in cross-validation and all classes are equally important.
+
+\subsection{Parameters}
+
+\subsubsection{Logistic Regression}
+We tried the following combinations
+
+\subsubsection{Random Forest}
+
+
+\subsection{Scaling}
+
+\subsection{Training / test set split}
+
 \begin{figure}[]
   \centering
   \caption{Logistic regression with TODO settings}
-  \includegraphics[width=\textwidth]{../plots/LR_1}
+  \includegraphics[width=0.5\textwidth]{../plots/LR_1}
   \label{fig:anomalySetup}
 \end{figure}
 
