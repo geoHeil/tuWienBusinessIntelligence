@@ -308,37 +308,37 @@ The combinations of parameters can be seen in the table below.
 \label{tbl:1}
 \centering
 \caption{Parameters for logistic regression}
-\begin{tabular}{|c|c|}
+\begin{tabular}{|c|c|c|}
 \hline 
-Solver & C \\ 
+ID & Solver & C \\ 
 \hline 
-lbfgs & 1 \\ 
+LR\_1 & lbfgs & 1 \\ 
 \hline 
-lbfgs & 0.8 \\ 
+LR\_2 & lbfgs & 0.8 \\ 
 \hline 
-lbfgs & 1.2 \\ 
+LR\_3 & lbfgs & 1.2 \\ 
 \hline 
-lbgfs & 10 \\ 
+LR\_4 & lbgfs & 10 \\ 
 \hline 
-newton-cg & 1 \\ 
+LR\_5 & newton-cg & 1 \\ 
 \hline 
-newton-cg & 0.8 \\ 
+LR\_6 & newton-cg & 0.8 \\ 
 \hline 
-newton-cg & 1.2 \\ 
+LR\_7 & newton-cg & 1.2 \\ 
 \hline 
-newton-cg & 10 \\ 
+LR\_8 & newton-cg & 10 \\ 
 \hline 
 \end{tabular} 
 \end{table}
 
 We experienced similar results with all parameter combinations.
-In Figure \ref{fig:lr} the results for the first set of parameters is shown.
+In Figure \ref{fig:lr} the results with a test size of 0.4 are shown.
 
 \begin{figure}[h]
   \label{fig:lr}
   \centering
-  \caption{Logistic regression with solver=lbfgs, C=1}
-  \includegraphics[width=0.5\textwidth]{../plots/LR_1}
+  \caption{Logistic regression with different parameters}
+  \includegraphics[width=0.5\textwidth]{../plots/LR_compare_param}
   \label{fig:anomalySetup}
 \end{figure}
 
@@ -347,6 +347,17 @@ The parameters of the algorithms as described above were varied.
 In contrast to the logistic regression we could observe a lot of variance in the outcome for the random forest.
 
 The most variance results in changing the number of estimators used. We could observe that 2 or 5 estimators are too few e.g. result in under-fitting. The default of 100 seems to be pretty reasonable.
+
+% TODO: Tabelle
+
+\begin{figure}[h]
+  \label{fig:lr}
+  \centering
+  \caption{Random forest with different parameters}
+  \includegraphics[width=0.5\textwidth]{../plots/RF_compare_param}
+  \label{fig:anomalySetup}
+\end{figure}
+
 
 \begin{figure}[]
   \centering
