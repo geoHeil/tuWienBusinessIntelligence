@@ -149,72 +149,76 @@ Georg Heiler\\
 We use the \href{https://www.kaggle.com/c/leaf-classification}{leaf classification dataset from Kaggle}. The idea is to automate plant recognition. The data consists of binary leaf images and extracted features, including shape, margin \& texture, to accurately identify 99 species of plants.
 
 \subsection{Characteristics of the extracted features}
-The following numbers are for the training data set
+The following numbers \ref{tbl:numbers} are for the main data set (train dataset on Kaggle), which we will split into train, test and validation datasets later on.
 
-\begin{itemize}
-  \item Number of features 194
-  \item Number of categorical features 1
-  \item Number of numerical features 193
-  \item Number of Samples 990
-  \item Target variable contains 99 different species
-\end{itemize}
+\begin{table}[h]
+\centering
+\caption{Numbers for the main data set}
+\label{tbl:numbers}
+\begin{tabular}{|l|c|}
+\hline 
+Number of features & 194 \\ 
+\hline 
+Number of categorical features & 1 \\ 
+\hline 
+Number of numerical features & 193 \\ 
+\hline 
+Number of samples & 990  \\ 
+\hline 
+Distinct instances of target variable (species) & 99 \\ 
+\hline 
+\end{tabular}
+\end{table}
 
-The test data set contains 594 additional instances. All in all the minimum requirements for the dataset are fulfilled.
+The additional data set (test dataset on Kaggle) contains 594 additional instances, although they are not labeled.
+This means that the classification of this data can not (yet) be verified as the labels will not be disclosed before the competition is over.
+All in all the minimum requirements for the dataset are fulfilled, and even without the test data set from Kaggle we are only short 10 samples.
 
 
 A detailed description of mean / min values or value ranges can be found in 
 \textbf{firstAnalysisOfTheData}
-, including histograms. 
+, including histograms.
+In general the characteristics are shown in the table below \ref{tbl:columns}.
 
-In general:
-\begin{itemize}
-  \item id
-  \item ID of the images from which the features were extracted
-  \item Range: [1,1584]
-  \item marginN (1-64)
-  \begin{itemize}
-	  \item Numerical
-	  \item Range (approximately): [0,0.3]
-	  \item Many outliers
-  \end{itemize}
-  \item shapeN (1-64)
-  \begin{itemize}
- 	  \item Numerical
-	  \item Range (approximately): [0,0.003]
-	  \item Few outliers
-\end{itemize}
-\item textureN (1-64)
-	\begin{itemize}
-		\item Numerical
-	  \item Range (approximately): [0,0.43]
-	  \item Few outliers
-\end{itemize}
-
-\item species
-  \begin{itemize}
-	\item Categorical
-	  \item 99 unique values
-	  \item The dataset does not contain any missing values and is not sparse.
-\end{itemize}
-
-\end{itemize}
+\begin{table}[h]
+\centering
+\caption{Columns of the dataset (N = 1-64)}
+\label{tbl:columns}
+\begin{tabular}{|c|c|c|c|}
+\hline 
+Name & Type & Range & Characteristics \\ 
+\hline 
+id & ID of the image & [1,1584] & unique \\ 
+\hline 
+marginN & numerical & [0,0.3] & many outliers \\ 
+\hline 
+shapeN & numerical & [0,0.003] & few outliers \\ 
+\hline 
+textureN & numerical & [0,0.43] & few outliers \\ 
+\hline 
+\end{tabular} 
+\end{table}
 
 \section{Classification}
 Analysis of Train/Test Set Splits, Performance and Parameters
 
 \subsection{Selection of algorithms}
 \subsubsection{Logistic regression (extracted features)}
+
 \begin{itemize}
   \item results easy to interpret
   \item fast to compute
 \end{itemize}
 
-Parameters:
-\begin{itemize}
-  \item C: inverse of the regularization strength
-  \item solver: algorithm to use in the optimization problem
-\end{itemize}
-
+\begin{tabular}{|l|l|}
+\hline
+Parameter & Description \\
+\hline
+C & inverse of the regularization strength \\
+\hline
+solver & algorithm to use in the optimization problem \\
+\hline
+\end{tabular}
 
 \subsubsection{Random forest (extracted features)}
 \begin{itemize}
@@ -224,12 +228,17 @@ Parameters:
   \item quick for smaller datasets
 \end{itemize}
 
-Parameters:
-\begin{itemize}
-  \item n\_estimators: number of trees
-  \item criterion: criterion used for splits of the trees
-  \item min\_sampless\_leaves: minimum number of samples required to be a leaf node 
-\end{itemize}
+\begin{tabular}{|l|p{50mm}|}
+\hline
+Parameter & Description \\
+\hline
+n\_estimators & number of trees \\
+\hline
+criterion & criterion used for splits of the trees \\
+\hline
+min\_sampless\_leaves & minimum number of samples required to be a leaf node \\
+\hline
+\end{tabular}
 
 \subsection{Preprocessing}
 
@@ -302,13 +311,16 @@ For some metrics (precision, recall, f1) we averaged the results over all classe
 \subsection{Parameters}
 
 \subsubsection{Logistic Regression}
-The combinations of parameters can be seen in the table below.
+The combinations of parameters can be seen in the table below \ref{tbl:logreg}.
+We experienced similar results with all parameter combinations.
+In figure \ref{fig:lr} the results with a test size of 0.4 are shown.
 
 \begin{table}[h]
-\label{tbl:1}
 \centering
 \caption{Parameters for logistic regression}
-\begin{tabular}{c|c|c}
+\label{tbl:logreg}
+\begin{tabular}{|c|c|c|}
+\hline
 ID & Solver & C \\ 
 \hline 
 LR\_1 & lbfgs & 1 \\ 
@@ -326,11 +338,9 @@ LR\_6 & newton-cg & 0.8 \\
 LR\_7 & newton-cg & 1.2 \\ 
 \hline 
 LR\_8 & newton-cg & 10 \\ 
+\hline
 \end{tabular} 
 \end{table}
-
-We experienced similar results with all parameter combinations.
-In Figure \ref{fig:lr} the results with a test size of 0.4 are shown.
 
 \begin{figure}[h]
   \centering
@@ -349,8 +359,9 @@ The most variance results in changing the number of estimators used. We could ob
 \centering
 \caption{Parameters for random forest}
 \label{rf-table}
-\begin{tabular}{l|l|l|l}
-\multicolumn{1}{c|}{ID} & n\_estimators & criterion & min\_samples\_leaves \\ \hline
+\begin{tabular}{|l|l|l|l|}
+\hline
+ID & n\_estimators & criterion & min\_samples\_leaves \\ \hline
 RF\_1                    & 5             & gini      & 1                    \\ \hline
 RF\_2                    & 10            & gini      & 1                    \\ \hline
 RF\_3                    & 20            & gini      & 1                    \\ \hline
@@ -363,6 +374,7 @@ RF\_9                    & 5             & entropy      & 1                    \
 RF\_A                    & 10            & entropy      & 1                    \\ \hline
 RF\_B                    & 20            & entropy      & 1                    \\ \hline
 RF\_C                    & 100            & entropy      & 1                    
+\\ \hline
 \end{tabular}
 \end{table}
 
