@@ -200,10 +200,10 @@ textureN & numerical & [0,0.43] & few outliers \\
 \end{table}
 
 \section{Classification}
-Analysis of Train/Test Set Splits, Performance and Parameters
+Analysis of train/test set splits, performance and parameters.
 
 \subsection{Selection of algorithms}
-\subsubsection{Logistic regression (extracted features)}
+\subsubsection{Logistic regression (selected parameters)}
 
 \begin{itemize}
   \item results easy to interpret
@@ -220,7 +220,7 @@ solver & algorithm to use in the optimization problem \\
 \hline
 \end{tabular}
 
-\subsubsection{Random forest (extracted features)}
+\subsubsection{Random forest (selected parameters)}
 \begin{itemize}
   \item popular methodology
   \item no feature scaling required
@@ -291,6 +291,7 @@ addZeroColumns(X, 'texture')
 
 \subsection{Subsampling}
 We will process the entire dataset, as it only contains around 1000 rows.
+However, we will save 99 samples for validation (stratified, one for each species), and use the rest as train/test data.
 
 \section{Training \& Testing}
 The code to follow along with this part of the assignment can be found in \emph{02\_classification.ipnb}. Below only the obtained results will be discussed.
@@ -314,6 +315,8 @@ For some metrics (precision, recall, f1) we averaged the results over all classe
 The combinations of parameters can be seen in the table below \ref{tbl:logreg}.
 We experienced similar results with all parameter combinations.
 In figure \ref{fig:lr} the results with a test size of 0.4 are shown.
+As you can see the choice of the parameters does not influence the results significantly, although C seems to have some influence.
+As precision and recall are reasonably higher for LR\_4 and LR\_8 we choose C = 10 with the standard lbfgs solver.
 
 \begin{table}[h]
 \centering
@@ -355,7 +358,7 @@ In contrast to the logistic regression we could observe a lot of variance in the
 
 The most variance results in changing the number of estimators used. We could observe that 2 or 5 estimators are too few e.g. result in under-fitting. The default of 100 seems to be pretty reasonable.
 
-\begin{table}[]
+\begin{table}[h]
 \centering
 \caption{Parameters for random forest}
 \label{rf-table}
@@ -392,104 +395,46 @@ In Figure \ref{fig:rf} the results with a test size of 0.4 for the parameter var
 
 As mentioned before, we used min-max scaling and standardisation for selected features.
 
-TODO add pictures + interpret
+TODO interpret
+
+\begin{figure}[h]
+  \centering
+  \caption{Random forest with different scalings}
+  \includegraphics[width=0.5\textwidth]{../plots/RF_compare_scaling}
+  \label{fig:rf_scaling}
+\end{figure}
+
+
+\begin{figure}[h]
+  \centering
+  \caption{Logistic regression with different scalings}
+  \includegraphics[width=0.5\textwidth]{../plots/LR_compare_scaling}
+  \label{fig:lr_scaling}
+\end{figure}
 
 \subsection{Training / test set split}
 
 We could observe that a random forest has problems when the test set is too large compared to logistic regression. Apparently the simpler model works fine with less data.
 The results are displayed below.
 
-TODO add pictures
+\begin{figure}[h]
+  \centering
+  \caption{Random forest with different splits}
+  \includegraphics[width=0.5\textwidth]{../plots/RF_split}
+  \label{fig:rf_scaling}
+\end{figure}
+
+
+\begin{figure}[h]
+  \centering
+  \caption{Logistic regression with different splits}
+  \includegraphics[width=0.5\textwidth]{../plots/LR_split}
+  \label{fig:lr_scaling}
+\end{figure}
 
 \subsubsection{logistic regression}
 
 \subsubsection{random forest}
-
-\begin{figure}[]
-  \centering
-  \caption{RF\_1}
-  \includegraphics[width=0.5\textwidth]{../plots/RF_1}
-  \label{fig:rf1}
-\end{figure}
-
-\begin{figure}[]
-  \centering
-  \caption{RF\_1}
-  \includegraphics[width=0.5\textwidth]{../plots/RF_2}
-  \label{fig:rf2}
-\end{figure}
-
-\begin{figure}[]
-  \centering
-  \caption{RF(n\_estimators=1, criterion='gini', min\_samples\_leaves=1)}
-  \includegraphics[width=0.5\textwidth]{../plots/RF_3}
-  \label{fig:rf3}
-\end{figure}
-
-\begin{figure}[]
-  \centering
-  \caption{RF(n\_estimators=1, criterion='gini', min\_samples\_leaves=1)}
-  \includegraphics[width=0.5\textwidth]{../plots/RF_4}
-  \label{fig:rf4}
-\end{figure}
-
-\begin{figure}[]
-  \centering
-  \caption{RF(n\_estimators=1, criterion='gini', min\_samples\_leaves=1)}
-  \includegraphics[width=0.5\textwidth]{../plots/RF_5}
-  \label{fig:anomalySetup}
-\end{figure}
-
-\begin{figure}[]
-  \centering
-  \caption{RF(n\_estimators=1, criterion='gini', min\_samples\_leaves=1)}
-  \includegraphics[width=0.5\textwidth]{../plots/RF_6}
-  \label{fig:anomalySetup}
-\end{figure}
-
-\begin{figure}[]
-  \centering
-  \caption{RF(n\_estimators=1, criterion='gini', min\_samples\_leaves=1)}
-  \includegraphics[width=0.5\textwidth]{../plots/RF_7}
-  \label{fig:anomalySetup}
-\end{figure}
-
-\begin{figure}[]
-  \centering
-  \caption{RF(n\_estimators=1, criterion='gini', min\_samples\_leaves=1)}
-  \includegraphics[width=0.5\textwidth]{../plots/RF_8}
-  \label{fig:anomalySetup}
-\end{figure}
-
-\begin{figure}[]
-  \centering
-  \caption{RF(n\_estimators=1, criterion='gini', min\_samples\_leaves=1)}
-  \includegraphics[width=0.5\textwidth]{../plots/RF_9}
-  \label{fig:anomalySetup}
-\end{figure}
-
-\begin{figure}[]
-  \centering
-  \caption{RF(n\_estimators=1, criterion='gini', min\_samples\_leaves=1)}
-  \includegraphics[width=0.5\textwidth]{../plots/RF_A}
-  \label{fig:anomalySetup}
-\end{figure}
-
-\begin{figure}[]
-  \centering
-  \caption{RF(n\_estimators=1, criterion='gini', min\_samples\_leaves=1)}
-  \includegraphics[width=0.5\textwidth]{../plots/RF_B}
-  \label{fig:anomalySetup}
-\end{figure}
-
-\begin{figure}[]
-  \centering
-  \caption{RF(n\_estimators=1, criterion='gini', min\_samples\_leaves=1)}
-  \includegraphics[width=0.5\textwidth]{../plots/RF_C}
-  \label{fig:anomalySetup}
-\end{figure}
-
-
 
 \section{NaN handling}
 
