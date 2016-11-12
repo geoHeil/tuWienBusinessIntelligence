@@ -356,7 +356,7 @@ LR\_8 & newton-cg & 10 \\
 The parameters of the algorithms as described above were varied.
 In contrast to the logistic regression we could observe a lot of variance in the outcome for the random forest.
 
-The most variance results in changing the number of estimators used. We could observe that 2 or 5 estimators are too few e.g. result in under-fitting. The default of 100 seems to be pretty reasonable.
+The most variance could be observed by changing the number of estimators used. We could observe that 2 or 5 estimators are too few e.g. result in under-fitting. The default of 100 seems to be pretty reasonable. The other parameters did not have a huge impact.
 
 \begin{table}[h]
 \centering
@@ -395,15 +395,7 @@ In Figure \ref{fig:rf} the results with a test size of 0.4 for the parameter var
 
 As mentioned before, we used min-max scaling and standardisation for selected features.
 
-TODO interpret
-
-\begin{figure}[h]
-  \centering
-  \caption{Random forest with different scalings}
-  \includegraphics[width=0.5\textwidth]{../plots/RF_compare_scaling}
-  \label{fig:rf_scaling}
-\end{figure}
-
+The results for the two algorithms with different scaling of the $X$ input matrix can be seen in Figure \ref{fig:lr_scaling} for logistic regression and in Figure \ref{fig:rf_scaling} for the random forest.
 
 \begin{figure}[h]
   \centering
@@ -411,17 +403,30 @@ TODO interpret
   \includegraphics[width=0.5\textwidth]{../plots/LR_compare_scaling}
   \label{fig:lr_scaling}
 \end{figure}
+\begin{figure}[h]
+  \centering
+  \caption{Random forest with different scalings}
+  \includegraphics[width=0.5\textwidth]{../plots/RF_compare_scaling}
+  \label{fig:rf_scaling}
+\end{figure}
 
-\subsection{Training / test set split}
+It can be observed that scaling does have an noticeable impact for logistic regression. Four our case standard scaling seems to be the best solution. 
 
-We could observe that a random forest has problems when the test set is too large compared to logistic regression. Apparently the simpler model works fine with less data.
-The results are displayed below.
+
+For the random forest no real impact of scaled data is noticeable, even though a small improvement is possible when scaling is applied.
+
+\subsection{Varying train/ test split size}
+
+The measurements results obtained for different train/test split sizes are displayed in Figure \ref{fig:lr_splits} for logistic regression and in Figure \ref{fig:rf_splits} for the random forest.
+ 
+For both models it can be observed that a test size which is too big e.g. 80\% of all the data available results in a poor fit.
+This holds true for both models tested in our experiments.
 
 \begin{figure}[h]
   \centering
   \caption{Random forest with different splits}
   \includegraphics[width=0.5\textwidth]{../plots/RF_split}
-  \label{fig:rf_scaling}
+  \label{fig:rf_splits}
 \end{figure}
 
 
@@ -429,12 +434,8 @@ The results are displayed below.
   \centering
   \caption{Logistic regression with different splits}
   \includegraphics[width=0.5\textwidth]{../plots/LR_split}
-  \label{fig:lr_scaling}
+  \label{fig:lr_splits}
 \end{figure}
-
-\subsubsection{logistic regression}
-
-\subsubsection{random forest}
 
 \section{NaN handling}
 
