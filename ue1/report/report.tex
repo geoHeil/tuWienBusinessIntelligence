@@ -417,7 +417,7 @@ For the random forest no real impact of scaled data is noticeable, even though a
 
 \subsection{Varying train/ test split size}
 
-The measurements results obtained for different train/test split sizes are displayed in Figure \ref{fig:lr_splits} for logistic regression and in Figure \ref{fig:rf_splits} for the random forest.
+The measurements results obtained for different train/test split sizes are displayed in Figure~\ref{fig:lr_splits} for logistic regression and in Figure~\ref{fig:rf_splits} for the random forest.
  
 For both models it can be observed that a test size which is too big e.g. 80\% of all the data available results in a poor fit.
 This holds true for both models tested in our experiments.
@@ -439,12 +439,59 @@ This holds true for both models tested in our experiments.
 
 \section{NaN handling}
 
-TODO
+\subsection{Script}
+
+The script is directly implemented in Python and executed after the data is imported and before the algorithm is trained.
+The percentages can be varied by setting the corresponding variables, columns and percentages for a certain dataset can be specified in the respective data structure \emph{Xn}.
+The strategies are also implemented there and work on the same data structure.
+Additional strategies and/or datasets may be added dynamically.
+
+\subsection{Results}
+
+The low percentage value of missing attributes is set to $0.1$, the high percentage value is set to $0.6$.
+As we have a lot of attributes, we expect that in case only values of one single attribute are removed, the results should be comparable to the original results without missing values.
+In Figure~\ref{fig:average_mval} the overall average results of each strategy are shown.
+There you can see, that the classmean strategy performs significantly better than the other two strategies on average.
+In Figures~\ref{fig:classmean_mval}, \ref{fig:totalmean_mval} and ~\ref{fig:ignore_mval} we can see that classmean produces very stable results for all datasets, while totalmean and ignore perform significantly worse if a lot of values are missing over all attributes.
+They also perform worse, if only a small number of values is missing across different attributes.
+As all of our attributes have a similar information gain the results for different columns are quite stable, which is also what we expected.
+
+\begin{figure}[h]
+  \centering
+  \caption{Average results over all datasets with different strategies}
+  \includegraphics[width=0.5\textwidth]{../plots/average_missing_values}
+  \label{fig:average_mval}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \caption{Comparison of results for different datasets with the classmean strategy}
+  \includegraphics[width=0.5\textwidth]{../plots/classmean_missing_values}
+  \label{fig:classmean_mval}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \caption{Comparison of results for different datasets with the totalmean strategy}
+  \includegraphics[width=0.5\textwidth]{../plots/totalmean_missing_values}
+  \label{fig:totalmean_mval}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \caption{Comparison of results for different datasets with the ignore strategy}
+  \includegraphics[width=0.5\textwidth]{../plots/ignore_missing_values}
+  \label{fig:ignore_mval}
+\end{figure}
 
 \section{summary}
 
-TODO bla bla
+Overall we experienced, that even without much fine tuning of the parameters, the results of our algorithms were quite good.
+By varying those parameters, we could slightly improve the performance.
+As the data originates from a competition, the labels for the real validation set will only be published sometime mid 2017.
+Then the performance for this validation set can be calculated and we are very excited, how our algorithms will perform on these samples.
 
-As our dataset consisted of two parts an unlabelled test part and a train part we chose to validate solely on the test set and not use a 3rd dedicated validation set, because the unlabelled part is our validation set. As the data originates from a competition the labels for the validation set will only be published sometime mid 2017. Then the performance for the validation set can be calculated.
+
+% As our dataset consisted of two parts an unlabelled test part and a train part we chose to validate solely on the test set and not use a 3rd dedicated validation set, because the unlabelled part is our validation set. As the data originates from a competition the labels for the validation set will only be published sometime mid 2017. Then the performance for the validation set can be calculated.
 
 \end{document}
