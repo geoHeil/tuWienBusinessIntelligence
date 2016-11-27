@@ -149,7 +149,7 @@ Georg Heiler\\
 We use the \href{https://www.kaggle.com/c/leaf-classification}{leaf classification dataset from Kaggle}. The idea is to automate plant recognition. The data consists of binary leaf images and extracted features, including shape, margin \& texture, to accurately identify 99 species of plants.
 
 \subsection{Characteristics of the extracted features}
-The following numbers \ref{tbl:numbers} are for the main data set (train dataset on Kaggle), which we will split into train, test and validation datasets later on.
+The following numbers \ref{tbl:numbers} are for the main data set (train dataset on Kaggle), which we will split into train and test datasets later on.
 
 \begin{table}[h]
 \centering
@@ -290,8 +290,7 @@ addZeroColumns(X, 'texture')
 \end{verbatim}
 
 \subsection{Subsampling}
-We will process the entire dataset, as it only contains around 1000 rows.
-However, we will save 99 samples for validation (stratified, one for each species), and use the rest as train/test data.
+We will process the entire dataset, as it only contains around 1000 instances.
 
 \section{Training \& Testing}
 The code to follow along with this part of the assignment can be found in \emph{02\_classification.ipnb}. Below only the obtained results will be discussed.
@@ -308,6 +307,8 @@ We chose the following quality metrics:
 
 To calculate those metrics we calculated the mean over the 10 folds.
 For some metrics (precision, recall, f1) we averaged the results over all classes beforehand, because all classes are equally distributed, stratified sampled in cross-validation and all classes are equally important.
+
+\newpage
 
 \subsection{Parameters}
 
@@ -445,6 +446,8 @@ The script is directly implemented in Python and executed after the data is impo
 The percentages can be varied by setting the corresponding variables, columns and percentages for a certain dataset can be specified in the respective data structure \emph{Xn}.
 The strategies are also implemented there and work on the same data structure.
 Additional strategies and/or datasets may be added dynamically.
+
+\newpage
 
 \subsection{Results}
 
