@@ -31,7 +31,7 @@ CREATE TABLE BI_OLTP_4.TB_CustomerAddress
   CustomerID  INT,
   AddressID   INT,
   AddressType VARCHAR(100),
-  CONSTRAINT FK_Customer FOREIGN KEY (CustomerID) REFERENCES TB_Customer (CustomerID),
+  CONSTRAINT FK_Customer1 FOREIGN KEY (CustomerID) REFERENCES TB_Customer (CustomerID),
   CONSTRAINT FK_Address FOREIGN KEY (AddressID) REFERENCES TB_Address (AddressID),
   CONSTRAINT PK_CustomerAddress PRIMARY KEY (CustomerID, AddressID)
 );
@@ -55,24 +55,12 @@ CREATE TABLE BI_OLTP_4.TB_Product (
   Weight            NUMERIC(12, 2),
   ProductCategoryID INT            NOT NULL,
   ProductModelName  VARCHAR(200),
-  SellStartDate     TIMESTAMP      NOT NULL,
-  SellEndDate       TIMESTAMP,
-  DiscontinuedDate  TIMESTAMP      NOT NULL,
+  SellStartDate     DATETIME       NOT NULL,
+  SellEndDate       DATETIME,
+  DiscontinuedDate  DATETIME       NOT NULL,
 
-  FOREIGN KEY FK_ProductCategory (ProductCategoryID) REFERENCES TB.ProductCategory (ProductCategoryID),
+  FOREIGN KEY FK_ProductCategory (ProductCategoryID) REFERENCES TB_ProductCategory (ProductCategoryID),
   PRIMARY KEY PK_Product (ProductID)
-);
-
-CREATE TABLE BI_OLTP_4.TB_SalesOrderDetail (
-  SalesOrderID       INT,
-  SalesOrderDetailID INT AUTO_INCREMENT,
-  OrderQty           INT            NOT NULL,
-  ProductID          INT            NOT NULL,
-  UnitPrice          NUMERIC(12, 2) NOT NULL,
-
-  FOREIGN KEY FK_SalesOrder (SalesOrderID) REFERENCES TB_SalesOrderHeader (SalesOrderID),
-  FOREIGN KEY FK_Product (ProductID) REFERENCES TB_Product (ProductID),
-  PRIMARY KEY PK_SalesOrderDetail (SalesOrderID, SalesOrderDetailID)
 );
 
 CREATE TABLE BI_OLTP_4.TB_ShipMethod (
@@ -90,17 +78,29 @@ CREATE TABLE BI_OLTP_4.TB_SalesOrderHeader
 (
   SalesORderID     INT PRIMARY KEY AUTO_INCREMENT,
   RevisionNumber   INT          NOT NULL,
-  OrderDate        TIMESTAMP    NOT NULL,
-  DueDate          TIMESTAMP    NOT NULL,
-  ShipDate         TIMESTAMP,
+  OrderDate        DATETIME     NOT NULL,
+  DueDate          DATETIME     NOT NULL,
+  ShipDate         DATETIME,
   Status           INT          NOT NULL CHECK (Status >= 1 & Status <= 6),
   SalesOrderNumber VARCHAR(200) NOT NULL UNIQUE,
   CustomerID       INT          NOT NULL,
   ShipToAddressID  INT          NOT NULL,
   BillToAddressID  INT          NOT NULL,
   ShipMethodID     INT          NOT NULL,
-  CONSTRAINT FK_Customer FOREIGN KEY (CustomerID) REFERENCES TB_Customer (CustomerID),
+  CONSTRAINT FK_Customer2 FOREIGN KEY (CustomerID) REFERENCES TB_Customer (CustomerID),
   CONSTRAINT FK_ShipToAddress FOREIGN KEY (ShipToAddressID) REFERENCES TB_Address (AddressID),
   CONSTRAINT FK_BillToAddress FOREIGN KEY (BillToAddressID) REFERENCES TB_Address (AddressID),
   CONSTRAINT FK_ShipMethod FOREIGN KEY (ShipMethodID) REFERENCES TB_ShipMethod (ShipMethodID)
+);
+
+CREATE TABLE BI_OLTP_4.TB_SalesOrderDetail (
+  SalesOrderID       INT,
+  SalesOrderDetailID INT,
+  OrderQty           INT            NOT NULL,
+  ProductID          INT            NOT NULL,
+  UnitPrice          NUMERIC(12, 2) NOT NULL,
+
+  FOREIGN KEY FK_SalesOrder (SalesOrderID) REFERENCES TB_SalesOrderHeader (SalesOrderID),
+  FOREIGN KEY FK_Product (ProductID) REFERENCES TB_Product (ProductID),
+  PRIMARY KEY PK_SalesOrderDetail (SalesOrderID, SalesOrderDetailID)
 );
