@@ -10,7 +10,7 @@ CREATE TABLE BI_OLTP_4.TB_Product (
   ProductModelName  VARCHAR(200),
   SellStartDate     DATETIME       NOT NULL,
   SellEndDate       DATETIME,
-  DiscontinuedDate  DATETIME       NOT NULL,
+  DiscontinuedDate  DATETIME,
 
   FOREIGN KEY FK_ProductCategory (ProductCategoryID) REFERENCES TB_ProductCategory (ProductCategoryID),
   PRIMARY KEY PK_Product (ProductID)
