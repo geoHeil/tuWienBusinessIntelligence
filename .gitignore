@@ -214,3 +214,5 @@ TSWLatexianTemp*
 # auto folder when using emacs and auctex 
 /auto/*
 
+ue2/data-integration
+ue2/schema-workbench
