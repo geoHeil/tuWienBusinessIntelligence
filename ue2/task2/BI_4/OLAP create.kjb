@@ -1,22 +1,22 @@
 <job>
-  <name>Drop all</name>
+  <name>OLAP create</name>
   <description/>
   <extended_description/>
   <job_version/>
   <job_status>0</job_status>
   <directory>&#x2f;</directory>
   <created_user>-</created_user>
-  <created_date>2016&#x2f;11&#x2f;29 14&#x3a;50&#x3a;33.858</created_date>
+  <created_date>2016&#x2f;11&#x2f;29 15&#x3a;39&#x3a;19.371</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2016&#x2f;11&#x2f;29 15&#x3a;46&#x3a;29.105</modified_date>
+  <modified_date>2016&#x2f;11&#x2f;29 15&#x3a;56&#x3a;36.830</modified_date>
     <parameters>
     </parameters>
   <connection>
-    <name>BI_OLTP_4</name>
+    <name>BI_OLAP_4</name>
     <server>localhost</server>
     <type>MYSQL</type>
     <access>Native</access>
-    <database>BI_OLTP_4</database>
+    <database>BI_OLAP_4</database>
     <port>3306</port>
     <username>root</username>
     <password>Encrypted 2be98afc86aa7f2e4cb79ce10bef2add3</password>
@@ -314,22 +314,6 @@
    <shared_objects_file/>
   <entries>
     <entry>
-      <name>Drop Create</name>
-      <description/>
-      <type>SQL</type>
-      <sql>DROP SCHEMA IF EXISTS BI_OLAP_4&#x3b;&#xa;CREATE SCHEMA BI_OLAP_4</sql>
-      <useVariableSubstitution>F</useVariableSubstitution>
-      <sqlfromfile>F</sqlfromfile>
-      <sqlfilename/>
-      <sendOneStatement>F</sendOneStatement>
-      <connection>BI_OLTP_4</connection>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>512</xloc>
-      <yloc>112</yloc>
-    </entry>
-    <entry>
       <name>START</name>
       <description/>
       <type>SPECIAL</type>
@@ -346,7 +330,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>128</xloc>
+      <xloc>144</xloc>
       <yloc>112</yloc>
     </entry>
     <entry>
@@ -356,28 +340,144 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1008</xloc>
-      <yloc>96</yloc>
+      <xloc>144</xloc>
+      <yloc>272</yloc>
+    </entry>
+    <entry>
+      <name>Time</name>
+      <description/>
+      <type>SQL</type>
+      <sql/>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>T</sqlfromfile>
+      <sqlfilename>..&#x2f;task2&#x2f;DM&#x2f;DM_Time.sql</sqlfilename>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>BI_OLAP_4</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>352</xloc>
+      <yloc>112</yloc>
+    </entry>
+    <entry>
+      <name>Customer</name>
+      <description/>
+      <type>SQL</type>
+      <sql/>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>T</sqlfromfile>
+      <sqlfilename>..&#x2f;task2&#x2f;DM&#x2f;DM_Customer.sql</sqlfilename>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>BI_OLAP_4</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>528</xloc>
+      <yloc>112</yloc>
+    </entry>
+    <entry>
+      <name>Location</name>
+      <description/>
+      <type>SQL</type>
+      <sql/>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>T</sqlfromfile>
+      <sqlfilename>..&#x2f;task2&#x2f;DM&#x2f;DM_Location.sql</sqlfilename>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>BI_OLAP_4</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>704</xloc>
+      <yloc>112</yloc>
+    </entry>
+    <entry>
+      <name>Product</name>
+      <description/>
+      <type>SQL</type>
+      <sql/>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>T</sqlfromfile>
+      <sqlfilename>..&#x2f;task2&#x2f;DM&#x2f;DM_Product.sql</sqlfilename>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>BI_OLAP_4</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>880</xloc>
+      <yloc>112</yloc>
+    </entry>
+    <entry>
+      <name>Sales</name>
+      <description/>
+      <type>SQL</type>
+      <sql/>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>T</sqlfromfile>
+      <sqlfilename>..&#x2f;task2&#x2f;DM&#x2f;DM_FactSales.sql</sqlfilename>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>BI_OLAP_4</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>1072</xloc>
+      <yloc>128</yloc>
     </entry>
   </entries>
   <hops>
     <hop>
-      <from>START</from>
-      <to>Drop Create</to>
+      <from>Time</from>
+      <to>Customer</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
-      <unconditional>Y</unconditional>
+      <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Drop Create</from>
+      <from>Customer</from>
+      <to>Location</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Location</from>
+      <to>Product</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Product</from>
+      <to>Sales</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Sales</from>
       <to>Success</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>START</from>
+      <to>Time</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
     </hop>
   </hops>
   <notepads>

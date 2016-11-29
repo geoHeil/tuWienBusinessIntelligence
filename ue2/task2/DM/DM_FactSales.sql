@@ -1,10 +1,10 @@
-CREATE TABLE BI_OLTP_4.DM_FactSales
+CREATE TABLE BI_OLAP_4.DM_FactSales
 (
-  SalesORderID     INT AUTO_INCREMENT,
+  SalesOrderID     INT AUTO_INCREMENT,
   RevisionNumber   INT          NOT NULL,
-  OrderDate        DATETIME     NOT NULL,
-  DueDate          DATETIME     NOT NULL,
-  ShipDate         DATETIME,
+  OrderDate        DATE     NOT NULL,
+  DueDate          DATE     NOT NULL,
+  ShipDate         DATE,
   Status           INT          NOT NULL CHECK (Status >= 1 & Status <= 6),
   SalesOrderNumber VARCHAR(200) NOT NULL UNIQUE,
   CustomerID       INT          NOT NULL,
@@ -14,10 +14,12 @@ CREATE TABLE BI_OLTP_4.DM_FactSales
   OrderQty           INT            NOT NULL,
   ProductID          INT            NOT NULL,
   UnitPrice          NUMERIC(12, 2) NOT NULL,
-  CONSTRAINT FK_Customer2 FOREIGN KEY (CustomerID) REFERENCES TB_Customer (CustomerID),
-  CONSTRAINT FK_ShipToAddress FOREIGN KEY (ShipToAddressID) REFERENCES TB_Address (AddressID),
-  CONSTRAINT FK_BillToAddress FOREIGN KEY (BillToAddressID) REFERENCES TB_Address (AddressID),
-  CONSTRAINT FK_ShipMethod FOREIGN KEY (ShipMethodID) REFERENCES TB_ShipMethod (ShipMethodID)
-  FOREIGN KEY FK_Product (ProductID) REFERENCES TB_Product (ProductID),
+  CONSTRAINT FK_Customer2 FOREIGN KEY (CustomerID) REFERENCES DM_Customer (CustomerID),
+  CONSTRAINT FK_ShipToAddress FOREIGN KEY (ShipToAddressID) REFERENCES DM_Location (AddressID),
+  CONSTRAINT FK_BillToAddress FOREIGN KEY (BillToAddressID) REFERENCES DM_Location (AddressID),
+  CONSTRAINT FK_OrderDate FOREIGN KEY (OrderDate) REFERENCES DM_Time (Date),
+  CONSTRAINT FK_DueDate FOREIGN KEY (DueDate) REFERENCES DM_Time (Date),
+  CONSTRAINT FK_ShipDate FOREIGN KEY (ShipDate) REFERENCES DM_Time (Date),
+  FOREIGN KEY FK_Product (ProductID) REFERENCES DM_Product (ProductID),
   PRIMARY KEY PK_FactSales (SalesOrderID, SalesOrderNumber)
 );
