@@ -14,6 +14,8 @@ CREATE TABLE BI_OLTP_4.DM_Product (
   Weight             NUMERIC(12, 2),
   IsBulkyItem        BOOLEAN
 
-  FOREIGN KEY FK_ProductCategory (ProductCategoryID) REFERENCES TB_ProductCategory (ProductCategoryID),
+  FOREIGN KEY FK_SellStartDate (SellStartDate) REFERENCES DM_Time (Date),
+  FOREIGN KEY FK_SellEndDate (SellEndDate) REFERENCES DM_Time (Date),
+  FOREIGN KEY FK_SellDiscontinuedDate (DiscontinuedDate) REFERENCES DM_Time (Date),
   PRIMARY KEY PK_Product (ProductID)
 );
