@@ -1,0 +1,12 @@
+CREATE TABLE BI_OLAP_4.DM_Customer (
+	CustomerID INT,
+	Name VARCHAR(150) NOT NULL,
+	BirthDate TIMESTAMP NOT NULL,
+	Age INT NOT NULL,
+	Gender VARCHAR(10) NOT NULL,
+	Email VARCHAR(200),
+	Phone VARCHAR(100),
+	
+	PRIMARY KEY PK_Customer (CustomerID)
+);
+
