@@ -12,7 +12,7 @@ CREATE TABLE BI_OLTP_4.DM_Product (
   DiscontinuedDate   DATETIME,
   Size               VARCHAR(100),
   Weight             NUMERIC(12, 2),
-  IsBulkyItem        BOOLEAN
+  IsBulkyItem        BOOLEAN,
 
   FOREIGN KEY FK_SellStartDate (SellStartDate) REFERENCES DM_Time (Date),
   FOREIGN KEY FK_SellEndDate (SellEndDate) REFERENCES DM_Time (Date),
