@@ -16,3 +16,10 @@ docker run -p 3306:3306 --name bi-mysql -e MYSQL_ROOT_PASSWORD=bi -d mysql:8.0
   - create the schema (`CREATE SCHEMA BI_OLTP_4`) manually BEFORE executing any sql  
 
   - main Kettle folder holding ALL transformations & jobs is in task 1 folder!!
+
+
+ ## Notes
+
+ **OLTP --> OLAP**
+ Transformations
+   - cast as timestamp is ambigous. We chose not to use an UNIX-timestamp which is not well defined pre 1970, but rather a mysql TIMESTAMP which works fine
