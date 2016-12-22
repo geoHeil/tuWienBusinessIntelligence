@@ -1,0 +1,78 @@
+<Schema name="BI4">
+  <Dimension type="TimeDimension" visible="true" name="Date">
+    <Hierarchy name="Days" visible="true" hasAll="true" primaryKey="Date" primaryKeyTable="DM_Time">
+      <Level name="Year" visible="true" table="DM_Time" column="CalendarYear" uniqueMembers="false" levelType="TimeYears">
+      </Level>
+      <Level name="Month" visible="true" table="DM_Time" column="MonthNumberOf" uniqueMembers="false" levelType="TimeMonths">
+      </Level>
+      <Level name="Day" visible="true" table="DM_Time" column="DayNumberOfMonth" uniqueMembers="false" levelType="TimeDays">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" name="Location">
+    <Hierarchy name="Areas" visible="true" hasAll="true" primaryKey="AddressID" primaryKeyTable="DM_Location">
+      <Level name="CountryRegion" visible="true" table="DM_Location" column="CountryRegion" uniqueMembers="false">
+      </Level>
+      <Level name="State" visible="true" table="DM_Location" column="StateProvince" uniqueMembers="false">
+      </Level>
+      <Level name="City" visible="true" table="DM_Location" column="City" uniqueMembers="false">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" name="Product">
+    <Hierarchy name="ProductCategory" visible="true" hasAll="true" primaryKey="ProductID" primaryKeyTable="DM_Product">
+      <Level name="TopCategory" visible="true" table="DM_Product" column="ProductTopCategory" uniqueMembers="false">
+      </Level>
+      <Level name="SubCategory" visible="true" table="DM_Product" column="ProductSubCategory" uniqueMembers="false">
+      </Level>
+    </Hierarchy>
+    <Hierarchy name="Name" visible="true" hasAll="true" primaryKey="ProductID" primaryKeyTable="DM_Product">
+      <Level name="Name" visible="true" table="DM_Product" column="Name" uniqueMembers="false">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" name="Customer">
+    <Hierarchy name="Age" visible="true" hasAll="true" primaryKey="CustomerID" primaryKeyTable="DM_Customer">
+      <Level name="Age" visible="true" table="DM_Customer" column="Age" uniqueMembers="false">
+      </Level>
+    </Hierarchy>
+    <Hierarchy name="Gender" visible="true" hasAll="true" primaryKey="CustomerID" primaryKeyTable="DM_Customer">
+      <Level name="Gender" visible="true" table="DM_Customer" column="Gender" uniqueMembers="false">
+      </Level>
+    </Hierarchy>
+    <Hierarchy name="Name" visible="true" hasAll="true" primaryKey="CustomerID" primaryKeyTable="DM_Customer">
+      <Level name="Name" visible="true" table="DM_Customer" column="Name" uniqueMembers="false">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Cube name="bike_sales" visible="true" cache="true" enabled="true">
+    <Table name="DM_FactSales" alias="">
+    </Table>
+    <DimensionUsage source="Customer" name="Customer" visible="true" foreignKey="CustomerID">
+    </DimensionUsage>
+    <DimensionUsage source="Product" name="Product" visible="true" foreignKey="ProductID">
+    </DimensionUsage>
+    <DimensionUsage source="Location" name="ShippedTo" visible="true" foreignKey="ShipToAddressID">
+    </DimensionUsage>
+    <DimensionUsage source="Location" name="BilledTo" visible="true" foreignKey="BillToAddressID">
+    </DimensionUsage>
+    <DimensionUsage source="Date" name="ShipDate" visible="true" foreignKey="ShipDate">
+    </DimensionUsage>
+    <DimensionUsage source="Date" name="OrderDate" visible="true" foreignKey="OrderDate">
+    </DimensionUsage>
+    <Measure name="Profit" column="OrderLineProfit" formatString="Currency" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="Revenue" column="OrderLineTotal" formatString="Currency" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="Quantity" column="OrderQty" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="Discount" column="Discount" formatString="Currency" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="FreightCost" column="OrderLineFreightCost" formatString="Currency" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="TaxAmount" column="TaxAmount" formatString="Currency" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="IsLateShipment" column="IsLateShipment" aggregator="sum" visible="true">
+    </Measure>
+  </Cube>
+</Schema>
