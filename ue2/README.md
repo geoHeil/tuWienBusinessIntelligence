@@ -4,14 +4,15 @@
 
   - docker
   - start the DB
+  	- WARNING using mariadb 10.2 (this is not production ready yet) but has nice rank functions
 ```
-docker run -p 3306:3306 --name bi-mysql2 -e MYSQL_ROOT_PASSWORD=bi -d mariadb
+docker run -p 3306:3306 --name bi-mysql3 -e MARIADB_PASS=bi -d million12/mariadb
 ```
 
   - add mysql drivers as described
   - start workbench './data-integration/spoon.sh'
   - start integration './schema-workbench/workbench.sh'
-  - connect to the database with localhost:3306, user=root, password=bi
+  - connect to the database with localhost:3306, user=admin, password=bi
 
   - create the schema (`CREATE SCHEMA BI_OLTP_4`) manually BEFORE executing any sql  
 
