@@ -5,7 +5,7 @@
     <access>Native</access>
     <database>BI_OLAP_4</database>
     <port>3306</port>
-    <username>root</username>
+    <username>admin</username>
     <password>Encrypted 2be98afc86aa7f2e4cb79ce10bef2add3</password>
     <servername/>
     <data_tablespace/>
