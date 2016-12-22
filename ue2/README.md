@@ -5,7 +5,7 @@
   - docker
   - start the DB
 ```
-docker run -p 3306:3306 --name bi-mysql -e MYSQL_ROOT_PASSWORD=bi -d mysql:8.0 
+docker run -p 3306:3306 --name bi-mysql2 -e MYSQL_ROOT_PASSWORD=bi -d mariadb
 ```
 
   - add mysql drivers as described
