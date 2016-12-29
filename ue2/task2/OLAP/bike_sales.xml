@@ -1,64 +1,78 @@
-<Schema name="BI4">
-  <Dimension type="TimeDimension" visible="true" name="Date">
-    <Hierarchy name="Days" visible="true" hasAll="true" primaryKey="Date" primaryKeyTable="DM_Time">
-      <Level name="Year" visible="true" table="DM_Time" column="CalendarYear" uniqueMembers="false" levelType="TimeYears">
+<Schema name="BI_OLAP_4">
+  <Dimension type="TimeDimension" visible="true" highCardinality="false" name="Date">
+    <Hierarchy name="Days" visible="true" hasAll="true" primaryKey="Date">
+      <Table name="DM_Time">
+      </Table>
+      <Level name="Year" visible="true" table="DM_Time" column="CalendarYear" type="String" uniqueMembers="false" levelType="TimeYears" hideMemberIf="Never">
       </Level>
-      <Level name="Month" visible="true" table="DM_Time" column="MonthNumberOf" uniqueMembers="false" levelType="TimeMonths">
+      <Level name="Month" visible="true" table="DM_Time" column="MonthNumberOf" type="String" uniqueMembers="false" levelType="TimeMonths" hideMemberIf="Never">
       </Level>
-      <Level name="Day" visible="true" table="DM_Time" column="DayNumberOfMonth" uniqueMembers="false" levelType="TimeDays">
-      </Level>
-    </Hierarchy>
-  </Dimension>
-  <Dimension type="StandardDimension" visible="true" name="Location">
-    <Hierarchy name="Areas" visible="true" hasAll="true" primaryKey="AddressID" primaryKeyTable="DM_Location">
-      <Level name="CountryRegion" visible="true" table="DM_Location" column="CountryRegion" uniqueMembers="false">
-      </Level>
-      <Level name="State" visible="true" table="DM_Location" column="StateProvince" uniqueMembers="false">
-      </Level>
-      <Level name="City" visible="true" table="DM_Location" column="City" uniqueMembers="false">
+      <Level name="Day" visible="true" table="DM_Time" column="DayNumberOfMonth" type="String" uniqueMembers="false" levelType="TimeDays" hideMemberIf="Never">
       </Level>
     </Hierarchy>
   </Dimension>
-  <Dimension type="StandardDimension" visible="true" name="Product">
-    <Hierarchy name="ProductCategory" visible="true" hasAll="true" primaryKey="ProductID" primaryKeyTable="DM_Product">
-      <Level name="TopCategory" visible="true" table="DM_Product" column="ProductTopCategory" uniqueMembers="false">
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Location">
+    <Hierarchy name="Areas" visible="true" hasAll="true" primaryKey="AddressID">
+      <Table name="DM_Location">
+      </Table>
+      <Level name="CountryRegion" visible="true" table="DM_Location" column="CountryRegion" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
       </Level>
-      <Level name="SubCategory" visible="true" table="DM_Product" column="ProductSubCategory" uniqueMembers="false">
+      <Level name="State" visible="true" table="DM_Location" column="StateProvince" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
       </Level>
-    </Hierarchy>
-    <Hierarchy name="Name" visible="true" hasAll="true" primaryKey="ProductID" primaryKeyTable="DM_Product">
-      <Level name="Name" visible="true" table="DM_Product" column="Name" uniqueMembers="false">
+      <Level name="City" visible="true" table="DM_Location" column="City" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
       </Level>
     </Hierarchy>
   </Dimension>
-  <Dimension type="StandardDimension" visible="true" name="Customer">
-    <Hierarchy name="Age" visible="true" hasAll="true" primaryKey="CustomerID" primaryKeyTable="DM_Customer">
-      <Level name="Age" visible="true" table="DM_Customer" column="Age" uniqueMembers="false">
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Product">
+    <Hierarchy name="ProductCategory" visible="true" hasAll="true" primaryKey="ProductID">
+      <Table name="DM_Product">
+      </Table>
+      <Level name="TopCategory" visible="true" table="DM_Product" column="ProductTopCategory" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="SubCategory" visible="true" table="DM_Product" column="ProductSubCategory" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
       </Level>
     </Hierarchy>
-    <Hierarchy name="Gender" visible="true" hasAll="true" primaryKey="CustomerID" primaryKeyTable="DM_Customer">
-      <Level name="Gender" visible="true" table="DM_Customer" column="Gender" uniqueMembers="false">
+    <Hierarchy name="Name" visible="true" hasAll="true" primaryKey="ProductID">
+      <Table name="DM_Product" alias="">
+      </Table>
+      <Level name="Name" visible="true" table="DM_Product" column="Name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
       </Level>
     </Hierarchy>
-    <Hierarchy name="Name" visible="true" hasAll="true" primaryKey="CustomerID" primaryKeyTable="DM_Customer">
-      <Level name="Name" visible="true" table="DM_Customer" column="Name" uniqueMembers="false">
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Customer">
+    <Hierarchy name="Age" visible="true" hasAll="true" primaryKey="CustomerID">
+      <Table name="DM_Customer" alias="">
+      </Table>
+      <Level name="Age" visible="true" table="DM_Customer" column="Age" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+    <Hierarchy name="Gender" visible="true" hasAll="true" primaryKey="CustomerID">
+      <Table name="DM_Customer" alias="">
+      </Table>
+      <Level name="Gender" visible="true" table="DM_Customer" column="Gender" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+    <Hierarchy name="Name" visible="true" hasAll="true" primaryKey="CustomerID">
+      <Table name="DM_Customer" alias="">
+      </Table>
+      <Level name="Name" visible="true" table="DM_Customer" column="Name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
       </Level>
     </Hierarchy>
   </Dimension>
   <Cube name="bike_sales" visible="true" cache="true" enabled="true">
-    <Table name="DM_FactSales" alias="">
+    <Table name="DM_FactSales">
     </Table>
-    <DimensionUsage source="Customer" name="Customer" visible="true" foreignKey="CustomerID">
+    <DimensionUsage source="Customer" name="Customer" visible="true" foreignKey="CustomerID" highCardinality="false">
     </DimensionUsage>
-    <DimensionUsage source="Product" name="Product" visible="true" foreignKey="ProductID">
+    <DimensionUsage source="Product" name="Product" visible="true" foreignKey="ProductID" highCardinality="false">
     </DimensionUsage>
-    <DimensionUsage source="Location" name="ShippedTo" visible="true" foreignKey="ShipToAddressID">
+    <DimensionUsage source="Location" name="ShippedTo" visible="true" foreignKey="ShipToAddressID" highCardinality="false">
     </DimensionUsage>
-    <DimensionUsage source="Location" name="BilledTo" visible="true" foreignKey="BillToAddressID">
+    <DimensionUsage source="Location" name="BilledTo" visible="true" foreignKey="BillToAddressID" highCardinality="false">
     </DimensionUsage>
-    <DimensionUsage source="Date" name="ShipDate" visible="true" foreignKey="ShipDate">
+    <DimensionUsage source="Date" name="ShipDate" visible="true" foreignKey="ShipDate" highCardinality="false">
     </DimensionUsage>
-    <DimensionUsage source="Date" name="OrderDate" visible="true" foreignKey="OrderDate">
+    <DimensionUsage source="Date" name="OrderDate" visible="true" foreignKey="OrderDate" highCardinality="false">
     </DimensionUsage>
     <Measure name="Profit" column="OrderLineProfit" formatString="Currency" aggregator="sum" visible="true">
     </Measure>
