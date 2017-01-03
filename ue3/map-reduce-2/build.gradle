@@ -1,0 +1,77 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+
+jar {
+    group = 'bi-lab3-group4'
+    baseName = 'sentiment'
+    version = '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    compileOnly group: 'org.apache.hadoop', name: 'hadoop-common', version: '2.7.3'
+    compile group: 'org.apache.hadoop', name: 'hadoop-client', version: '2.7.3'
+    compile group: 'org.apache.hadoop', name: 'hadoop-mapreduce-client-core', version: '2.7.3'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.13'
+    compile group: 'org.slf4j', name: 'log4j-over-slf4j', version: '1.7.13'
+    compile group: 'commons-io', name: 'commons-io', version: '2.4'
+    compile 'ch.qos.logback:logback-classic:1.1.3'
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        if (details.requested.name == 'slf4j-log4j12') {
+            //prefer 'log4j-over-slf4j' over 'log4j', with fixed version:
+            details.useTarget "ch.qos.logback:logback-classic:1.1.3"
+        }
+    }
+}
+
+mainClassName = 'biLab3Group4.ReviewScoreAvgDriver'
+
+uploadArchives {
+    repositories {
+        flatDir {
+            dirs 'repos'
+        }
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.2.1'
+}
+
+task(video, dependsOn: 'classes', type: JavaExec) {
+    main = 'biLab3Group4.ReviewScoreAvgDriver'
+    classpath = sourceSets.main.runtimeClasspath
+    args 'src/main/resources/amazon/5core/reviews_Amazon_Instant_Video_5.json'
+}
+
+task(outdoor, dependsOn: 'classes', type: JavaExec) {
+    main = 'biLab3Group4.ReviewScoreAvgDriver'
+    classpath = sourceSets.main.runtimeClasspath
+    args 'src/main/resources/amazon/5core/reviews_Sports_and_Outdoors_5.json'
+}
+
+task(games, dependsOn: 'classes', type: JavaExec) {
+    main = 'biLab3Group4.ReviewScoreAvgDriver'
+    classpath = sourceSets.main.runtimeClasspath
+    args 'src/main/resources/amazon/5core/reviews_Video_Games_5.json'
+}
+
+task runAllMapReduceJobs {
+    dependsOn ':video'
+    dependsOn ':outdoor'
+    dependsOn ':games'
+}
