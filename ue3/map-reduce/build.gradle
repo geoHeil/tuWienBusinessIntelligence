@@ -51,3 +51,27 @@ uploadArchives {
 task wrapper(type: Wrapper) {
     gradleVersion = '3.2.1'
 }
+
+task(video, dependsOn: 'classes', type: JavaExec) {
+    main = 'biLab3Group4.ReviewScoreAvgDriver'
+    classpath = sourceSets.main.runtimeClasspath
+    args 'resources/amazon/ratingsOnly/ratings_Amazon_Instant_Video.csv'
+}
+
+task(outdoor, dependsOn: 'classes', type: JavaExec) {
+    main = 'biLab3Group4.ReviewScoreAvgDriver'
+    classpath = sourceSets.main.runtimeClasspath
+    args 'resources/amazon/ratingsOnly/ratings_Sports_and_Outdoors.csv'
+}
+
+task(games, dependsOn: 'classes', type: JavaExec) {
+    main = 'biLab3Group4.ReviewScoreAvgDriver'
+    classpath = sourceSets.main.runtimeClasspath
+    args 'resources/amazon/ratingsOnly/ratings_Video_Games.csv'
+}
+
+task runAllMapReduceJobs {
+    dependsOn ':video'
+    dependsOn ':outdoor'
+    dependsOn ':games'
+}
