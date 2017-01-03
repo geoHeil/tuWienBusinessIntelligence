@@ -28,7 +28,7 @@ public class JoinMapper1
     private Text valueOut = new Text();
     private Text textFirst = new Text();
     private Text textSecond = new Text();
-    private edu.liu.geoheil.TextPair keysOut = new TextPair();
+    private TextPair keysOut = new TextPair();
 
     @Override
     protected void map(LongWritable key, Text value, Context context)

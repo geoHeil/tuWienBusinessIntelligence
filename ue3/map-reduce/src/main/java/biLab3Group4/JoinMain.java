@@ -23,7 +23,7 @@ public class JoinMain extends Configured implements Tool {
 
   public static class KeyPartitioner extends Partitioner<biLab3Group4.TextPair, Text> {
     @Override
-    public int getPartition(/*[*/edu.liu.geoheil.TextPair key/*]*/, Text value, int numPartitions) {
+    public int getPartition(/*[*/TextPair key/*]*/, Text value, int numPartitions) {
       return (/*[*/key.getFirst().hashCode()/*]*/ & Integer.MAX_VALUE) % numPartitions;
     }
   }
