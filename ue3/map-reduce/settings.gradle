@@ -16,4 +16,4 @@ include 'api'
 include 'services:webservice'
 */
 
-rootProject.name = 'lab04-current'
+rootProject.name = 'lab03-current'

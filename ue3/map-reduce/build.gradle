@@ -38,7 +38,7 @@ configurations.all {
     }
 }
 
-mainClassName = 'biLab3Group4.JoinMain'
+mainClassName = 'biLab3Group4.ReviewScoreAvgDriver'
 
 uploadArchives {
     repositories {
