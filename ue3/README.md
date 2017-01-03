@@ -11,7 +11,7 @@ Implementation:
 
 Questions:
  - How many invocations of map reduce are there:
-   - 2x (1x mapper, 1x reducer) per product
+   - 2x (1x mapper, 1x reducer)
  - where is most of the runtime spent
    - parsing the file
  - what is the expected speedup when run on multiple machines
@@ -32,7 +32,7 @@ Implementation:
 
 Questions:
  - How many invocations of map reduce are there:
-   - 2x (1x mapper, 1x reducer) per product
+   - 2x (1x mapper, 1x reducer)
  - where is most of the runtime spent
    - parsing the json
  - what is the expected speedup when run on multiple machines
