@@ -21,8 +21,7 @@ public class ReviewScoreAvgDriver extends Configured implements Tool {
 		Job job = Job.getInstance(getConf(), "");
 		job.setJarByClass(getClass());
 
-		Path inputPath = new Path(
-				"/home/stevie/Dokumente/TU/aktuell/BI/Assignments/Git/ue3/map-reduce/src/main/resources/amazon/ratingsOnly/ratings_Amazon_Instant_Video.csv");
+		Path inputPath = new Path(args[0]);
 		Path outputPath = new Path("result/output");
 
 		MultipleInputs.addInputPath(job, inputPath, TextInputFormat.class, biLab3Group4.ReviewScoreMapper.class);
