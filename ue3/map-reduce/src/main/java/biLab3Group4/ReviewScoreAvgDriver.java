@@ -20,9 +20,11 @@ public class ReviewScoreAvgDriver extends Configured implements Tool {
 
 		Job job = Job.getInstance(getConf(), "");
 		job.setJarByClass(getClass());
-
+		
 		Path inputPath = new Path(args[0]);
-		Path outputPath = new Path("result/output");
+		String s = "result/output/" + inputPath.getName();
+		Path outputPath = new Path(s);
+		FileUtils.deleteDirectory(new File(s));
 
 		MultipleInputs.addInputPath(job, inputPath, TextInputFormat.class, biLab3Group4.ReviewScoreMapper.class);
 		FileOutputFormat.setOutputPath(job, outputPath);
@@ -42,7 +44,6 @@ public class ReviewScoreAvgDriver extends Configured implements Tool {
 	}
 
 	public static void main(String[] args) throws Exception {
-		FileUtils.deleteDirectory(new File("result/output"));
 
 		int exitCode = ToolRunner.run(new ReviewScoreAvgDriver(), args);
 		System.exit(exitCode);

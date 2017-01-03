@@ -15,7 +15,9 @@ public class SentimentWritable implements Writable {
 	private DoubleWritable sentiment;
 	
 	public SentimentWritable() {
-		
+		positive = new LongWritable();
+		negative = new LongWritable();
+		sentiment = new DoubleWritable();
 	}
 	
 	public SentimentWritable(LongWritable positive, LongWritable negative, DoubleWritable sentiment) {

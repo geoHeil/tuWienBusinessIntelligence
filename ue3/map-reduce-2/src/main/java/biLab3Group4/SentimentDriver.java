@@ -26,7 +26,7 @@ public class SentimentDriver extends Configured implements Tool {
 		Path outputPath = new Path(s);
 		FileUtils.deleteDirectory(new File(s));
 
-		MultipleInputs.addInputPath(job, inputPath, TextInputFormat.class, biLab3Group4.SentimentMapper.class);
+		MultipleInputs.addInputPath(job, inputPath, TextInputFormat.class, SentimentMapper.class);
 		FileOutputFormat.setOutputPath(job, outputPath);
 
 		// job.setPartitionerClass(KeyPartitioner.class);
@@ -40,7 +40,12 @@ public class SentimentDriver extends Configured implements Tool {
 		job.setOutputValueClass(SentimentWritable.class);
 		
 
-		return job.waitForCompletion(true) ? 0 : 1;
+		int result = job.waitForCompletion(true) ? 0 : 1;
+		
+		System.out.println("Map invocations: " + SentimentMapper.count.get());
+		System.out.println("Reduce invocations: " + SentimentReducer.count.get());
+		
+		return result;
 	}
 
 	public static void main(String[] args) throws Exception {

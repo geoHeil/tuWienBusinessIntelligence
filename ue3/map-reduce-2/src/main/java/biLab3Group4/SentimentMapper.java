@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -62,9 +63,13 @@ public class SentimentMapper extends Mapper<LongWritable, Text, Text, SentimentW
 	private Text keysOut = new Text();
 	private ObjectMapper objectMapper = new ObjectMapper();
 
+	public static AtomicInteger count = new AtomicInteger(0);
+
 	@Override
 	protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 
+		count.incrementAndGet();
+		
 		String line = value.toString();
 		ReviewItem item = objectMapper.readValue(line, ReviewItem.class);
 
@@ -81,7 +86,8 @@ public class SentimentMapper extends Mapper<LongWritable, Text, Text, SentimentW
 		keysOut.set(item.getAsin());
 		positiveOut.set(positive);
 		negativeOut.set(negative);
-		sentimentOut.set(positive + negative > 0 ? (positive - negative) / (positive + negative) : Double.NaN);
+		sentimentOut.set(positive + negative > 0
+				? ((double) positive - (double) negative) / ((double) positive + (double) negative) : Double.NaN);
 
 		valueOut.setNegative(negativeOut);
 		valueOut.setPositive(positiveOut);
