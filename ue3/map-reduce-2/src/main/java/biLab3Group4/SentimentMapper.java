@@ -82,6 +82,7 @@ public class SentimentMapper extends Mapper<LongWritable, Text, Text, SentimentW
 		positiveOut.set(positive);
 		negativeOut.set(negative);
 		sentimentOut.set(positive + negative > 0 ? (positive - negative) / (positive + negative) : Double.NaN);
+		logger.info("sentiment out " + positive + negative);
 
 		valueOut.setNegative(negativeOut);
 		valueOut.setPositive(positiveOut);

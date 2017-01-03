@@ -24,22 +24,23 @@ public class SentimentReducer extends Reducer<Text, SentimentWritable, Text, Sen
             throws IOException, InterruptedException {
 
     	long posSum = 0, negSum = 0;
-    	Iterator<SentimentWritable> it = values.iterator();    	
+    	Iterator<SentimentWritable> it = values.iterator();
     	while(it.hasNext()) {
     		SentimentWritable s = it.next();
+    		logger.info("sentiment s " + s);
     		posSum += s.getPositive().get();
     		negSum += s.getNegative().get();
     	}
-    	
+
     	resultKey.set(key);
 		positiveOut.set(posSum);
 		negativeOut.set(negSum);
 		sentimentOut.set(posSum + negSum > 0 ? (posSum - negSum) / (posSum + negSum) : Double.NaN);
-		
+
     	resultOutput.setNegative(negativeOut);
     	resultOutput.setPositive(positiveOut);
     	resultOutput.setSentiment(sentimentOut);
-    	
+
     	context.write(resultKey, resultOutput);
     }
 }
