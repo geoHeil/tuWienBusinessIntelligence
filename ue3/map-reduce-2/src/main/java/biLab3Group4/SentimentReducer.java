@@ -34,7 +34,7 @@ public class SentimentReducer extends Reducer<Text, SentimentWritable, Text, Sen
     	resultKey.set(key);
 		positiveOut.set(posSum);
 		negativeOut.set(negSum);
-		sentimentOut.set((posSum - negSum) / (posSum + negSum));
+		sentimentOut.set(posSum + negSum > 0 ? (posSum - negSum) / (posSum + negSum) : Double.NaN);
 		
     	resultOutput.setNegative(negativeOut);
     	resultOutput.setPositive(positiveOut);

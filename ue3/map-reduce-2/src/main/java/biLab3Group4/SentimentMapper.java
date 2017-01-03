@@ -4,6 +4,7 @@ import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +32,7 @@ public class SentimentMapper extends Mapper<LongWritable, Text, Text, SentimentW
 		}
 	}
 
+	@JsonIgnoreProperties(ignoreUnknown = true)
 	static class ReviewItem {
 		private String asin;
 		private String reviewText;
@@ -58,32 +60,29 @@ public class SentimentMapper extends Mapper<LongWritable, Text, Text, SentimentW
 	private DoubleWritable sentimentOut = new DoubleWritable();
 	private SentimentWritable valueOut = new SentimentWritable();
 	private Text keysOut = new Text();
+	private ObjectMapper objectMapper = new ObjectMapper();
 
 	@Override
 	protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 
 		String line = value.toString();
-
-		ObjectMapper objectMapper = new ObjectMapper();
-		List<ReviewItem> items = objectMapper.readValue(line,
-				objectMapper.getTypeFactory().constructCollectionType(List.class, ReviewItem.class));
-		ReviewItem first = items.get(0);
+		ReviewItem item = objectMapper.readValue(line, ReviewItem.class);
 
 		long negative = 0, positive = 0;
-		
-		for (String word : first.reviewText.split(" |,|;|:|-|\\.|\\?|\\!")) {
+
+		for (String word : item.reviewText.split(" |,|;|:|-|\\.|\\?|\\!")) {
 			if (negWords.contains(word)) {
 				negative++;
 			} else if (posWords.contains(word)) {
 				positive++;
 			}
 		}
-		
-		keysOut.set(first.getAsin());
+
+		keysOut.set(item.getAsin());
 		positiveOut.set(positive);
 		negativeOut.set(negative);
-		sentimentOut.set((positive - negative) / (positive + negative));
-		
+		sentimentOut.set(positive + negative > 0 ? (positive - negative) / (positive + negative) : Double.NaN);
+
 		valueOut.setNegative(negativeOut);
 		valueOut.setPositive(positiveOut);
 		valueOut.setSentiment(sentimentOut);
