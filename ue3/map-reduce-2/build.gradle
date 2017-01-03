@@ -38,7 +38,7 @@ configurations.all {
     }
 }
 
-mainClassName = 'biLab3Group4.ReviewScoreAvgDriver'
+mainClassName = 'biLab3Group4.SentimentDriver'
 
 uploadArchives {
     repositories {
