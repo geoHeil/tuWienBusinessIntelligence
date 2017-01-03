@@ -53,19 +53,19 @@ task wrapper(type: Wrapper) {
 }
 
 task(video, dependsOn: 'classes', type: JavaExec) {
-    main = 'biLab3Group4.ReviewScoreAvgDriver'
+    main = mainClassName
     classpath = sourceSets.main.runtimeClasspath
     args 'src/main/resources/amazon/5core/reviews_Amazon_Instant_Video_5.json'
 }
 
 task(outdoor, dependsOn: 'classes', type: JavaExec) {
-    main = 'biLab3Group4.ReviewScoreAvgDriver'
+    main = mainClassName
     classpath = sourceSets.main.runtimeClasspath
     args 'src/main/resources/amazon/5core/reviews_Sports_and_Outdoors_5.json'
 }
 
 task(games, dependsOn: 'classes', type: JavaExec) {
-    main = 'biLab3Group4.ReviewScoreAvgDriver'
+    main = mainClassName
     classpath = sourceSets.main.runtimeClasspath
     args 'src/main/resources/amazon/5core/reviews_Video_Games_5.json'
 }
