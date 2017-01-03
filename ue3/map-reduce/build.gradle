@@ -55,19 +55,19 @@ task wrapper(type: Wrapper) {
 task(video, dependsOn: 'classes', type: JavaExec) {
     main = 'biLab3Group4.ReviewScoreAvgDriver'
     classpath = sourceSets.main.runtimeClasspath
-    args 'resources/amazon/ratingsOnly/ratings_Amazon_Instant_Video.csv'
+    args 'src/main/resources/amazon/ratingsOnly/ratings_Amazon_Instant_Video.csv'
 }
 
 task(outdoor, dependsOn: 'classes', type: JavaExec) {
     main = 'biLab3Group4.ReviewScoreAvgDriver'
     classpath = sourceSets.main.runtimeClasspath
-    args 'resources/amazon/ratingsOnly/ratings_Sports_and_Outdoors.csv'
+    args 'src/main/resources/amazon/ratingsOnly/ratings_Sports_and_Outdoors.csv'
 }
 
 task(games, dependsOn: 'classes', type: JavaExec) {
     main = 'biLab3Group4.ReviewScoreAvgDriver'
     classpath = sourceSets.main.runtimeClasspath
-    args 'resources/amazon/ratingsOnly/ratings_Video_Games.csv'
+    args 'src/main/resources/amazon/ratingsOnly/ratings_Video_Games.csv'
 }
 
 task runAllMapReduceJobs {
