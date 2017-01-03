@@ -33,6 +33,7 @@ public class SentimentReducer extends Reducer<Text, SentimentWritable, Text, Sen
 		Iterator<SentimentWritable> it = values.iterator();
 		while (it.hasNext()) {
 			SentimentWritable s = it.next();
+    		logger.info("sentiment s " + s);
 			posSum += s.getPositive().get();
 			negSum += s.getNegative().get();
 		}
