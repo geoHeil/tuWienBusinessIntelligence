@@ -1,3 +1,8 @@
+
+docker run --hostname=quickstart.cloudera --privileged=true -t -i -p 8888 cloudera/quickstart:latest /usr/bin/docker-quickstart
+
+
+
 # Project documentation
 
 business intelligence project lab 3
