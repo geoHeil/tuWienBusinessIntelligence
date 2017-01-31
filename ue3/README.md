@@ -150,43 +150,181 @@ B000003SQQ	SentimentWritable [positive=50, negative=27, sentiment=0.298701298701
 
 **How many movies are there in total in the dataset?**
 
+32204001
+
+1 Job: 4 Map-Tasks, 1 Reduce Task
+
+Map 
+Reduce = sum
+
 **How many movies in the dataset belong to the "Film-Noir" genre?**
 
+233
 
+1 job
+
+Where, Sum
 
 **Which are the 10 most frequently assigned tags (by users, i.e., from the tags table)?**
 
+1	sci-fi	3384
+2	based on a book	3281
+3	atmospheric	2917
+4	comedy	2779
+5	action	2657
+6	surreal	2427
+7	BD-R	2334
+8	twist ending	2323
+9	funny	2072
+10	dystopia	1991
 
+1, 1
+1, 1
+2 jobs
+
+Job 1: Group and calculate SUM
+Job 2: Sort and Limit
 
 **Which 10 movies were the most controversial in 2015 (i.e., had the highest variance in ratings between 2015/01/01 and 2015/12/31)?**
 
+1	45533	4
+2	6051	4
+3	2298	4
+4	101971	4
+5	128425	4
+6	126927	4
+7	3905	4
+8	72360	4
+9	128173	4
+10	128169	4
+
+2 jobs
+
+Job 1: Group, Variance (AVG)
+Job 2: Variance, Order
 
 
 **Which movies (titles) are the 10 most frequently tagged and how often have they been tagged?**
 
+Pulp Fiction (1994)	1994
+2	Fight Club (1999)	1779
+3	Inception (2010)	1552
+4	"Matrix	1430
+5	"Shawshank Redemption	1339
+6	Eternal Sunshine of the Spotless Mind (2004)	1240
+7	Donnie Darko (2001)	1177
+8	Memento (2000)	1168
+9	"Silence of the Lambs	1100
+10	Avatar (2009)	995
 
+2 jobs
+
+Job 1: Group and calculate SUM
+Job 2: Join, Sort and Limit
 
 **Which 15 movies (titles) have been most frequently tagged with the label "mars"?**
 
+1	Mars Attacks! (1996)	34
+2	"War of the Worlds	25
+3	Total Recall (2012)	10
+4	Capricorn One (1978)	9
+5	Total Recall (1990)	9
+6	Martian Child (2007)	6
+7	It Came from Outer Space (1953)	4
+8	Mission to Mars (2000)	4
+9	"Day the Earth Stood Still	4
+10	RocketMan (a.k.a. Rocket Man) (1997)	3
+11	"6th Day	3
+12	Red Planet (2000)	2
+13	Destination Moon (1950)	2
+14	Impostor (2002)	1
+15	Doom (2005)	1
 
+2 jobs
+
+Job 1: Where, group and calculate SUM
+Job 2: Join, Sort and Limit
 
 **Which are the 10 best-rated movies (on average; list titles) with more than 1000 ratings?**
 
+1	Pulp Fiction (1994)	4.2625	67310
+2	Forrest Gump (1994)	4.1235	66172
+3	"Shawshank Redemption	4.539	63366
+4	"Silence of the Lambs	4.2695	63299
+5	Jurassic Park (1993)	3.7567	59715
+6	Star Wars: Episode IV - A New Hope (1977)	4.2798	54502
+7	Braveheart (1995)	4.1327	53769
+8	Terminator 2: Judgment Day (1991)	4.0214	52244
+9	"Matrix	4.3169	51334
+10	Schindler's List (1993)	4.4015	50054
 
+2 jobs
+
+Job 1: group and calculate SUM
+Job 2: Having, Join, Sort and Limit
 
 **Which are the highest-rated "Film-Noir" movies with more than 10 ratings (average rating; movies with genre "Film-Noir", max. 10)?**
 
+1	L.A. Confidential (1997)	4.1845	26836
+2	Sin City (2005)	4.0856	15481
+3	Chinatown (1974)	4.2995	15310
+4	Dark City (1998)	3.9311	11759
+5	Mulholland Drive (2001)	3.986	9307
+6	Sunset Blvd. (a.k.a. Sunset Boulevard) (1950)	4.3537	6525
+7	Miller's Crossing (1990)	4.0957	6060
+8	Strangers on a Train (1951)	4.2631	5154
+9	Blood Simple (1984)	4.1587	5053
+10	Notorious (1946)	4.2847	4932
 
+2 jobs
+
+Job 1: where, group and calculate SUM
+Job 2: Having, Join, Sort and Limit
 
 **What are the 15 most relevant genome tags for the movie "Toy Story (1995)" (movieId=1)?**
 
+1	toys	0.99924999999999997
+2	computer animation	0.99849999999999994
+3	pixar animation	0.996
+4	kids and family	0.99075000000000002
+5	animation	0.9857499999999999
+6	kids	0.97924999999999995
+7	pixar	0.96675
+8	children	0.96425000000000005
+9	cartoon	0.95649999999999991
+10	imdb top 250	0.94199999999999995
+11	animated	0.93324999999999991
+12	childhood	0.92625000000000002
+13	great movie	0.92074999999999996
+14	disney animated feature	0.91375000000000006
+15	friendship	0.91175000000000006
 
+1 job
+
+Where, Join, Order, Limit (kein Group)
 
 **Which are the 10 most relevant movies for Vienna (i.e., with the highest genome tag relevance rating for the tag "vienna")?**
 
+1	"Third Man	0.98750000000000004
+2	Johnny Guitar (1954)	0.96649999999999991
+3	Before Sunrise (1995)	0.96124999999999994
+4	Before Sunset (2004)	0.95700000000000007
+5	Before Midnight (2013)	0.91100000000000003
+6	"Night Porter	0.89349999999999996
+7	"Illusionist	0.84525000000000006
+8	Amadeus (1984)	0.84149999999999991
+9	"Foreign Affair	0.73224999999999996
+10	Love in the Afternoon (1957)	0.66900000000000004
 
+1 job
+
+Where, Join, Order, Limit (kein Group)
 
 
 ### Description of your understanding of what happens behind the scenes
 including a discuss on how many MR jobs your queries are translated into and why. Finally, also comment on what scale-up you would expect when running your queries on a real cluster in paralle
+
+Scalability:
+ - expected speedup when run on multiple machines
+   - a bit less than linear due to cooridnation overhead
 
