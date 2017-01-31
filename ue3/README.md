@@ -1,11 +1,8 @@
-
-docker run --hostname=quickstart.cloudera --privileged=true -t -i -p 8888 cloudera/quickstart:latest /usr/bin/docker-quickstart
-
-
-
 # Project documentation
 
-business intelligence project lab 3
+Business Intelligence Project Lab 3
+
+docker run --hostname=quickstart.cloudera --privileged=true -t -i -p 8888 cloudera/quickstart:latest /usr/bin/docker-quickstart
 
 Run `gradle runAllMapReduceJobs` in the project folder
 
@@ -131,7 +128,7 @@ B000HZEHL6	SentimentWritable [positive=104, negative=82, sentiment=0.11827956989
 B000I5PVD8	SentimentWritable [positive=27, negative=9, sentiment=0.5]
 B000I5Q0ZG	SentimentWritable [positive=13, negative=4, sentiment=0.5294117647058824]
 ```
- 
+
 Video games:
 
 ```
@@ -147,24 +144,27 @@ Video games:
 B000003SQQ	SentimentWritable [positive=50, negative=27, sentiment=0.2987012987012987]
 ```
 
-
-
 ## hive
 
 ### Results for all queries
 
 **How many movies are there in total in the dataset?**
 
+```
 32204001
+```
 
-1 Job: 4 Map-Tasks, 1 Reduce Task
+1 Job
 
 Map 
 Reduce = sum
 
 **How many movies in the dataset belong to the "Film-Noir" genre?**
 
+
+```
 233
+```
 
 1 job
 
@@ -172,6 +172,8 @@ Where, Sum
 
 **Which are the 10 most frequently assigned tags (by users, i.e., from the tags table)?**
 
+
+```
 1	sci-fi	3384
 2	based on a book	3281
 3	atmospheric	2917
@@ -182,16 +184,14 @@ Where, Sum
 8	twist ending	2323
 9	funny	2072
 10	dystopia	1991
-
-1, 1
-1, 1
-2 jobs
+```
 
 Job 1: Group and calculate SUM
 Job 2: Sort and Limit
 
 **Which 10 movies were the most controversial in 2015 (i.e., had the highest variance in ratings between 2015/01/01 and 2015/12/31)?**
 
+```
 1	45533	4
 2	6051	4
 3	2298	4
@@ -202,6 +202,7 @@ Job 2: Sort and Limit
 8	72360	4
 9	128173	4
 10	128169	4
+```
 
 2 jobs
 
@@ -211,7 +212,8 @@ Job 2: Variance, Order
 
 **Which movies (titles) are the 10 most frequently tagged and how often have they been tagged?**
 
-Pulp Fiction (1994)	1994
+```
+1	Pulp Fiction (1994)	1994
 2	Fight Club (1999)	1779
 3	Inception (2010)	1552
 4	"Matrix	1430
@@ -221,6 +223,7 @@ Pulp Fiction (1994)	1994
 8	Memento (2000)	1168
 9	"Silence of the Lambs	1100
 10	Avatar (2009)	995
+```
 
 2 jobs
 
@@ -229,6 +232,7 @@ Job 2: Join, Sort and Limit
 
 **Which 15 movies (titles) have been most frequently tagged with the label "mars"?**
 
+```
 1	Mars Attacks! (1996)	34
 2	"War of the Worlds	25
 3	Total Recall (2012)	10
@@ -244,6 +248,7 @@ Job 2: Join, Sort and Limit
 13	Destination Moon (1950)	2
 14	Impostor (2002)	1
 15	Doom (2005)	1
+```
 
 2 jobs
 
@@ -252,6 +257,7 @@ Job 2: Join, Sort and Limit
 
 **Which are the 10 best-rated movies (on average; list titles) with more than 1000 ratings?**
 
+```
 1	Pulp Fiction (1994)	4.2625	67310
 2	Forrest Gump (1994)	4.1235	66172
 3	"Shawshank Redemption	4.539	63366
@@ -262,6 +268,7 @@ Job 2: Join, Sort and Limit
 8	Terminator 2: Judgment Day (1991)	4.0214	52244
 9	"Matrix	4.3169	51334
 10	Schindler's List (1993)	4.4015	50054
+```
 
 2 jobs
 
@@ -270,6 +277,7 @@ Job 2: Having, Join, Sort and Limit
 
 **Which are the highest-rated "Film-Noir" movies with more than 10 ratings (average rating; movies with genre "Film-Noir", max. 10)?**
 
+```
 1	L.A. Confidential (1997)	4.1845	26836
 2	Sin City (2005)	4.0856	15481
 3	Chinatown (1974)	4.2995	15310
@@ -280,6 +288,7 @@ Job 2: Having, Join, Sort and Limit
 8	Strangers on a Train (1951)	4.2631	5154
 9	Blood Simple (1984)	4.1587	5053
 10	Notorious (1946)	4.2847	4932
+```
 
 2 jobs
 
@@ -288,6 +297,7 @@ Job 2: Having, Join, Sort and Limit
 
 **What are the 15 most relevant genome tags for the movie "Toy Story (1995)" (movieId=1)?**
 
+```
 1	toys	0.99924999999999997
 2	computer animation	0.99849999999999994
 3	pixar animation	0.996
@@ -303,6 +313,7 @@ Job 2: Having, Join, Sort and Limit
 13	great movie	0.92074999999999996
 14	disney animated feature	0.91375000000000006
 15	friendship	0.91175000000000006
+```
 
 1 job
 
@@ -310,6 +321,7 @@ Where, Join, Order, Limit (kein Group)
 
 **Which are the 10 most relevant movies for Vienna (i.e., with the highest genome tag relevance rating for the tag "vienna")?**
 
+```
 1	"Third Man	0.98750000000000004
 2	Johnny Guitar (1954)	0.96649999999999991
 3	Before Sunrise (1995)	0.96124999999999994
@@ -320,6 +332,7 @@ Where, Join, Order, Limit (kein Group)
 8	Amadeus (1984)	0.84149999999999991
 9	"Foreign Affair	0.73224999999999996
 10	Love in the Afternoon (1957)	0.66900000000000004
+```
 
 1 job
 
@@ -327,6 +340,7 @@ Where, Join, Order, Limit (kein Group)
 
 
 ### Description of your understanding of what happens behind the scenes
+
 including a discuss on how many MR jobs your queries are translated into and why. Finally, also comment on what scale-up you would expect when running your queries on a real cluster in paralle
 
 Scalability:
